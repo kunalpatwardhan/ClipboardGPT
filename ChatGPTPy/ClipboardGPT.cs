@@ -5,6 +5,10 @@ using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Reflection;
+using Markdig;
+using Markdig.SyntaxHighlighting;
+using Markdown.ColorCode;
 
 namespace ChatGPTPy
 {
@@ -17,6 +21,17 @@ namespace ChatGPTPy
         public ClipboardGPT()
         {
             InitializeComponent();
+
+            // Set the icon and text for the notify icon
+            //notifyIcon1.Icon = Properties.Resources.MyIcon;
+            Icon appIcon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
+            notifyIcon1.Icon= appIcon;
+            notifyIcon1.Text = "Clipboard GPT";
+            notifyIcon1.Visible = true;
+
+            var pipeline = new MarkdownPipelineBuilder()
+    .UseAdvancedExtensions()
+    .Build();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -27,22 +42,35 @@ namespace ChatGPTPy
             cmdShell.ExecuteOnPythonShell("\"" + Application.StartupPath + "t1.py" + "\"");
         }
 
- 
-        async void ScrollToBottom()
+        string previousResponse = "";
+        async void ScrollToBottom(bool doNotNotify = false)
         {
             // update below c# code so that it will scroll to half of text
             textBox2.SelectionStart = textBox2.Text.Length;
             textBox2.SelectionLength = 0;
             textBox2.ScrollToCaret();
 
-            clipboardText = textBox2.Text;
-            Clipboard.Clear();
-            Clipboard.SetText(clipboardText);
+            
+
 
             var md = textBox2.Text;
-            var html = Markdig.Markdown.ToHtml(md);
+            var pipeline = new Markdig.MarkdownPipelineBuilder().UseAdvancedExtensions().UseSyntaxHighlighting().Build();
+
+            var html = Markdig.Markdown.ToHtml(md,pipeline);
             await webView21.EnsureCoreWebView2Async();
             webView21.NavigateToString( html);
+            if(previousResponse != html)
+            {
+                previousResponse = html;
+                if (doNotNotify == false)
+                {
+                    clipboardText = textBox2.Text;
+                    Clipboard.Clear();
+                    Clipboard.SetText(clipboardText);
+
+                    notifyIcon1.ShowBalloonTip(5000, "Clipboard GPT", "Response Updated!", ToolTipIcon.Info);
+                }
+            }
 
         }
         void test_onData(CmdShell sender, string e)
@@ -71,13 +99,15 @@ namespace ChatGPTPy
                     textBox2.Invoke((MethodInvoker)delegate
                     {
                         textBox2.Text += message;
-                        ScrollToBottom();
+                        if(message != e)
+                            ScrollToBottom();
                     });
                 }
                 else
                 {
                     textBox2.Text += message;
-                    ScrollToBottom();
+                    if (message != e)
+                        ScrollToBottom();
                 }
 
             }
@@ -102,18 +132,26 @@ namespace ChatGPTPy
             if (clipboardText == Clipboard.GetText())
                 return;
 
-            if (clipboardText == "")
+            if (Clipboard.GetText() == "")
                 return;
 
 
             clipboardText = Clipboard.GetText();
             textBox1.Text = clipboardText;
+            
+            int index = textBox1.Text.IndexOf('\n');
+            string firstLine = (index > 0) ? textBox1.Text.Substring(0, index) : textBox1.Text;
+
+            if (firstLine.Contains(@"//") == false)
+                return;
+
             cmdShell.sortStreamWriter.Write(textBox1.Text + "\r\n");
 
             textBox2.Text = "Asking Chat GPT" + Environment.NewLine;
             textBox2.Text += textBox1.Text;
             textBox2.Text = textBox2.Text.Replace(Environment.NewLine, "\n");
-            ScrollToBottom();
+            notifyIcon1.ShowBalloonTip(5000, "ClipboardGPT", textBox2.Text , ToolTipIcon.Info);
+            ScrollToBottom(true);
         }
     }
 }

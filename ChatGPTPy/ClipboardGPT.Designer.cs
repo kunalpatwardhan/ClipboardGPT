@@ -39,6 +39,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -171,6 +172,11 @@
             this.splitContainer2.SplitterDistance = 267;
             this.splitContainer2.TabIndex = 0;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // ClipboardGPT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -210,5 +216,6 @@
         private TabPage tabPage2;
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
+        private NotifyIcon notifyIcon1;
     }
 }

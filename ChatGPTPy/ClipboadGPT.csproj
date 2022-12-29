@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="Markdig.SyntaxHighlighting" Version="1.1.7" />
+    <PackageReference Include="Markdown.ColorCode" Version="1.0.2" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1462.37" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
