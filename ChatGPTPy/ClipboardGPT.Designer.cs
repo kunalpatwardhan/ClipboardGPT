@@ -186,6 +186,7 @@
             this.Name = "ClipboardGPT";
             this.Text = "Clipboard GPT";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.ClipboardGPT_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

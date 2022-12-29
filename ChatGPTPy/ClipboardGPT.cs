@@ -9,6 +9,7 @@ using System.Reflection;
 using Markdig;
 using Markdig.SyntaxHighlighting;
 using Markdown.ColorCode;
+using System.Net;
 
 namespace ChatGPTPy
 {
@@ -28,10 +29,16 @@ namespace ChatGPTPy
             notifyIcon1.Icon= appIcon;
             notifyIcon1.Text = "Clipboard GPT";
             notifyIcon1.Visible = true;
-
+            notifyIcon1.Click += NotifyIcon1_Click;
             var pipeline = new MarkdownPipelineBuilder()
     .UseAdvancedExtensions()
     .Build();
+        }
+
+        private void NotifyIcon1_Click(object? sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -50,12 +57,16 @@ namespace ChatGPTPy
             textBox2.SelectionLength = 0;
             textBox2.ScrollToCaret();
 
-            
-
-
             var md = textBox2.Text;
             var pipeline = new Markdig.MarkdownPipelineBuilder().UseAdvancedExtensions().UseSyntaxHighlighting().Build();
 
+            if(md ==@"
+Spawning browser...
+Browser spawned.
+Found Cloudflare Cookie!")
+            {
+                Hide();
+            }
             var html = Markdig.Markdown.ToHtml(md,pipeline);
             await webView21.EnsureCoreWebView2Async();
             webView21.NavigateToString( html);
@@ -67,7 +78,7 @@ namespace ChatGPTPy
                     clipboardText = textBox2.Text;
                     Clipboard.Clear();
                     Clipboard.SetText(clipboardText);
-
+                    Show();
                     notifyIcon1.ShowBalloonTip(5000, "Clipboard GPT", "Response Updated!", ToolTipIcon.Info);
                 }
             }
@@ -101,6 +112,8 @@ namespace ChatGPTPy
                         textBox2.Text += message;
                         if(message != e)
                             ScrollToBottom();
+                        else
+                            ScrollToBottom(true);
                     });
                 }
                 else
@@ -108,6 +121,9 @@ namespace ChatGPTPy
                     textBox2.Text += message;
                     if (message != e)
                         ScrollToBottom();
+                    else
+                        ScrollToBottom(true);
+
                 }
 
             }
@@ -152,6 +168,15 @@ namespace ChatGPTPy
             textBox2.Text = textBox2.Text.Replace(Environment.NewLine, "\n");
             notifyIcon1.ShowBalloonTip(5000, "ClipboardGPT", textBox2.Text , ToolTipIcon.Info);
             ScrollToBottom(true);
+        }
+
+        private void ClipboardGPT_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                //notifyIcon.Visible = true;
+            }
         }
     }
 }
