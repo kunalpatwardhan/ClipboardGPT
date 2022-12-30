@@ -30,15 +30,30 @@ namespace ChatGPTPy
             notifyIcon1.Text = "Clipboard GPT";
             notifyIcon1.Visible = true;
             notifyIcon1.Click += NotifyIcon1_Click;
+            notifyIcon1.BalloonTipClicked += NotifyIcon1_BalloonTipClicked;
             var pipeline = new MarkdownPipelineBuilder()
     .UseAdvancedExtensions()
     .Build();
         }
 
+        private void NotifyIcon1_BalloonTipClicked(object? sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            Show();
+            WindowState = FormWindowState.Normal;
+            if (clipboardCopyText != "")
+            {
+                Clipboard.Clear();
+                Clipboard.SetText(clipboardCopyText);
+                clipboardText = clipboardCopyText;
+            }
+        }
+
         private void NotifyIcon1_Click(object? sender, EventArgs e)
         {
-            WindowState = FormWindowState.Normal;
+            WindowState = FormWindowState.Minimized;
             Show();
+            WindowState = FormWindowState.Normal;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -75,10 +90,8 @@ Found Cloudflare Cookie!")
                 previousResponse = html;
                 if (doNotNotify == false)
                 {
-                    clipboardText = textBox2.Text;
-                    Clipboard.Clear();
-                    Clipboard.SetText(clipboardText);
-                    Show();
+                    //clipboardText = textBox2.Text;
+                    clipboardCopyText = textBox2.Text;
                     notifyIcon1.ShowBalloonTip(5000, "Clipboard GPT", "Response Updated!", ToolTipIcon.Info);
                 }
             }
@@ -142,6 +155,7 @@ Found Cloudflare Cookie!")
         }
 
         string clipboardText = "";
+        string clipboardCopyText = "";
         private void timer1_Tick(object sender, EventArgs e)
         {
 
