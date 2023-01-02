@@ -175,7 +175,7 @@ Found Cloudflare Cookie!")
             if (firstLine.Contains(@"//") == false)
                 return;
 
-            cmdShell.sortStreamWriter.Write(textBox1.Text + "\r\n");
+            cmdShell.sortStreamWriter.Write(textBox1.Text.Replace(Environment.NewLine," ") + "\r\n");
 
             textBox2.Text = "Asking Chat GPT" + Environment.NewLine;
             textBox2.Text += textBox1.Text;
