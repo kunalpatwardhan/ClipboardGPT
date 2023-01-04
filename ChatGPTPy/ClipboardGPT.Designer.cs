@@ -186,7 +186,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(1363, 890);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "Trials";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // txtCopyScript
@@ -205,9 +205,9 @@
             this.txtStyleCode.Name = "txtStyleCode";
             this.txtStyleCode.Size = new System.Drawing.Size(223, 137);
             this.txtStyleCode.TabIndex = 0;
-            this.txtStyleCode.Text = "<style>\r\n      pre {\r\n        border: 1px solid black;\r\n        background-color:" +
-    " #f0f0f0;\r\n        padding: 10px;\r\n      }\r\n      \r\n      .copy-button {\r\n      " +
-    "  float: right;\r\n      }\r\n  </style>";
+            this.txtStyleCode.Text = "   <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/prism/1.22" +
+    ".0/themes/prism-coy.min.css\" />\r\n<style>      \r\n      .copy-button {\r\n        fl" +
+    "oat: right;\r\n      }\r\n  </style>";
             // 
             // notifyIcon1
             // 

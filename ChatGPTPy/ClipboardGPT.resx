@@ -61,7 +61,8 @@
     <value>17, 17</value>
   </metadata>
   <data name="txtCopyScript.Text" xml:space="preserve">
-    <value>    &lt;script&gt;
+    <value>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"&gt;&lt;/script&gt;    
+&lt;script&gt;
       function addCopyButtons() {
         // Get all code segments on the page
         var codeBlocks = document.querySelectorAll("pre code");
@@ -69,6 +70,8 @@
         // Iterate through the code segments
         for (var i = 0; i &lt; codeBlocks.length; i++) {
           // Create a new button element
+          Prism.highlightElement(codeBlocks[i]);
+
           var copyButton = document.createElement("button");
           
           // Set the button's text to "Copy"
