@@ -60,6 +60,51 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="txtCopyScript.Text" xml:space="preserve">
+    <value>    &lt;script&gt;
+      function addCopyButtons() {
+        // Get all code segments on the page
+        var codeBlocks = document.querySelectorAll("pre code");
+        
+        // Iterate through the code segments
+        for (var i = 0; i &lt; codeBlocks.length; i++) {
+          // Create a new button element
+          var copyButton = document.createElement("button");
+          
+          // Set the button's text to "Copy"
+          copyButton.innerHTML = "Copy";
+          
+          // Set the button's class to "copy-button"
+          copyButton.className = "copy-button";
+          
+          // Add the button to the current code segment
+          codeBlocks[i].parentNode.insertBefore(copyButton, codeBlocks[i]);
+          
+          // Add a click event listener to the button
+          copyButton.addEventListener("click", function(event) {
+            // Get the code segment that the button belongs to
+            var codeBlock = event.target.nextSibling;
+            
+            // Select the code segment's text
+            var range = document.createRange();
+            range.selectNode(codeBlock);
+            window.getSelection().addRange(range);
+            
+            // Copy the selected text to the clipboard
+            document.execCommand("copy");
+            
+            // Deselect the text
+            window.getSelection().removeAllRanges();
+          });
+        }
+      }
+      
+      // Add the copy buttons when the page loads
+      document.addEventListener("DOMContentLoaded", function() {
+        addCopyButtons();
+      });
+    &lt;/script&gt;</value>
+  </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>118, 17</value>
   </metadata>

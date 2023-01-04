@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipboardGPT));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -39,6 +40,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtCopyScript = new System.Windows.Forms.TextBox();
+            this.txtStyleCode = new System.Windows.Forms.TextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -52,6 +56,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -106,6 +111,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -171,6 +177,38 @@
             this.splitContainer2.SplitterDistance = 267;
             this.splitContainer2.TabIndex = 0;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtCopyScript);
+            this.tabPage3.Controls.Add(this.txtStyleCode);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1363, 890);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtCopyScript
+            // 
+            this.txtCopyScript.Location = new System.Drawing.Point(240, 318);
+            this.txtCopyScript.Multiline = true;
+            this.txtCopyScript.Name = "txtCopyScript";
+            this.txtCopyScript.Size = new System.Drawing.Size(287, 154);
+            this.txtCopyScript.TabIndex = 1;
+            this.txtCopyScript.Text = resources.GetString("txtCopyScript.Text");
+            // 
+            // txtStyleCode
+            // 
+            this.txtStyleCode.Location = new System.Drawing.Point(297, 85);
+            this.txtStyleCode.Multiline = true;
+            this.txtStyleCode.Name = "txtStyleCode";
+            this.txtStyleCode.Size = new System.Drawing.Size(223, 137);
+            this.txtStyleCode.TabIndex = 0;
+            this.txtStyleCode.Text = "<style>\r\n      pre {\r\n        border: 1px solid black;\r\n        background-color:" +
+    " #f0f0f0;\r\n        padding: 10px;\r\n      }\r\n      \r\n      .copy-button {\r\n      " +
+    "  float: right;\r\n      }\r\n  </style>";
+            // 
             // notifyIcon1
             // 
             this.notifyIcon1.Text = "notifyIcon1";
@@ -200,6 +238,8 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -217,5 +257,8 @@
         private SplitContainer splitContainer1;
         private SplitContainer splitContainer2;
         private NotifyIcon notifyIcon1;
+        private TabPage tabPage3;
+        private TextBox txtStyleCode;
+        private TextBox txtCopyScript;
     }
 }

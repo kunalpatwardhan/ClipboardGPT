@@ -85,8 +85,14 @@ Found Cloudflare Cookie!")
                 Hide();
             }
             var html = Markdig.Markdown.ToHtml(md,pipeline);
-            html = html.Insert(html.IndexOf("<\pre>"), "<button onclick=\"copyToClipboard()\">Copy Code</button>");
-            html += Environment.NewLine
+            //html = html.Insert(html.IndexOf("<\pre>"), "<button onclick=\"copyToClipboard()\">Copy Code</button>");
+            //if (html.Contains("<head>"))
+            //{
+            //    html = html.Insert(html.IndexOf("<head>"), txtStyleCode.Text);
+            //}
+            html += Environment.NewLine + txtStyleCode.Text;
+            html += Environment.NewLine + txtCopyScript.Text;
+
             await webView21.EnsureCoreWebView2Async();
             webView21.NavigateToString( html);
             if(previousResponse != html)
