@@ -64,10 +64,11 @@ namespace ChatGPTPy
             cmdShell.ExecuteOnPythonShell("\"" + Application.StartupPath + "t1.py" + "\"");
         }
 
+        // make below code more readable
         string previousResponse = "";
         async void ScrollToBottom(bool doNotNotify = false)
         {
-            // update below c# code so that it will scroll to half of text
+            
             textBox2.SelectionStart = textBox2.Text.Length;
             textBox2.SelectionLength = 0;
             textBox2.ScrollToCaret();
@@ -80,9 +81,12 @@ Spawning browser...
 Browser spawned.
 Found Cloudflare Cookie!")
             {
+                timer1.Start();
                 Hide();
             }
             var html = Markdig.Markdown.ToHtml(md,pipeline);
+            html = html.Insert(html.IndexOf("<\pre>"), "<button onclick=\"copyToClipboard()\">Copy Code</button>");
+            html += Environment.NewLine
             await webView21.EnsureCoreWebView2Async();
             webView21.NavigateToString( html);
             if(previousResponse != html)
